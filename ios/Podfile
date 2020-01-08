@@ -36,6 +36,10 @@ target 'Trav' do
 
   pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
 
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
+  pod 'RNI18n', :path => '../node_modules/react-native-i18n'
+
   target 'TravTests' do
     inherit! :search_paths
     # Pods for testing
