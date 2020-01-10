@@ -34,6 +34,9 @@
             </intent-filter>
         </service>
         <service android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCTHmaBlX3y-1XkurGVSE0eMkHog0QYhuM"/>
     </application>
 
 </manifest>

@@ -5,6 +5,10 @@ import android.content.Context;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
+import com.zmxv.RNSound.RNSoundPackage;
+import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;
+import net.no_mad.tts.TextToSpeechPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.imagepicker.ImagePickerPackage;
 import org.reactnative.camera.RNCameraPackage;
