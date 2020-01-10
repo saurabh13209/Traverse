@@ -130,9 +130,12 @@ android {
     defaultConfig {
         applicationId "com.trav"
         minSdkVersion rootProject.ext.minSdkVersion
+        missingDimensionStrategy 'react-native-camera', 'general'
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        buildToolsVersion "28.0.3"
     }
     splits {
         abi {
@@ -179,6 +182,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-webview')
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-camera')
     implementation project(':react-native-i18n')
     implementation project(':react-native-device-info')
     implementation project(':react-native-firebase')
@@ -188,7 +194,10 @@ dependencies {
     implementation "com.google.firebase:firebase-core:16.0.9"
     implementation "com.google.firebase:firebase-messaging:18.0.0"
     implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
-
+    implementation "com.google.firebase:firebase-database:17.0.0"
+    implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
+    implementation 'com.android.support:multidex:1.0.3'
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
