@@ -4,6 +4,9 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import Tts from 'react-native-tts';
 import LocalizedStrings from 'react-native-localization';
 
+import {observer} from 'mobx-react';
+import HomeStore from '../stores/HomeStore'
+
 var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
 
@@ -29,9 +32,8 @@ let strings = new LocalizedStrings({
     }
 });
 
+@observer
 export default class SoundScreen extends React.Component {
-
-
     playSound = (link) => {
         var whoosh = new Sound(link, Sound.MAIN_BUNDLE, (error) => {
             if (error) {
@@ -54,6 +56,10 @@ export default class SoundScreen extends React.Component {
     render() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+
+                <Text>
+                    {HomeStore.refresh}
+                </Text>
 
                 <Text style={{ fontSize: 20, marginBottom: 10 }}>
                     {strings.how}

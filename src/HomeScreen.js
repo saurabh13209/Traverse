@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert, View, Text, TouchableOpacity, } from 'react-native';
 import firebase from 'react-native-firebase';
 import DeviceInfo from 'react-native-device-info';
-import axios from 'axios';
+import { observer } from 'mobx-react';
+import HomeStore from '../stores/HomeStore'
 
-export default class HomeScreen extends React.Component {
-
+@observer
+export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.camera = null;
@@ -65,9 +66,12 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 10, justifyContent: "center", alignItems: 'center' }} >
-
+        <Text>
+          {HomeStore.refresh}
+        </Text>
         <TouchableOpacity
           onPress={() => {
+            HomeStore.refresh = "Text Changed"
             this.props.navigation.navigate("Camera");
           }}
         >
