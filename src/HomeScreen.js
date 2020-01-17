@@ -4,6 +4,7 @@ import firebase from 'react-native-firebase';
 import DeviceInfo from 'react-native-device-info';
 import { observer } from 'mobx-react';
 import HomeStore from '../stores/HomeStore'
+import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 
 @observer
 export default class HomeScreen extends Component {
@@ -14,9 +15,29 @@ export default class HomeScreen extends Component {
 
   componentDidMount() {
     this.fetchToken();
-
+    GoogleSignin.configure({
+      webClientId: '715001967796-in981pie4ebed0j6gqbbr6ao1fsqv19e.apps.googleusercontent.com',
+      offlineAccess: false
+    });
   }
 
+  signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo);
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
+  };
 
   fetchToken = async () => {
     const fcmToken = await firebase.messaging().getToken();
@@ -66,6 +87,15 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={{ flex: 10, justifyContent: "center", alignItems: 'center' }} >
+        <TouchableOpacity
+          onPress={() => {
+            this.signIn();
+          }}
+        >
+          <Text>
+            Sign In
+          </Text>
+        </TouchableOpacity>
         <Text>
           {HomeStore.refresh}
         </Text>

@@ -54,6 +54,8 @@ target 'Trav' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
+
   target 'TravTests' do
     inherit! :search_paths
     # Pods for testing

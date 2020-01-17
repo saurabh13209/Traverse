@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.babisoft.ReactNativeLocalization.ReactNativeLocalizationPackage;

@@ -29,6 +29,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/google-signin": "^3.0.4",
     "@react-native-community/masked-view": "^0.1.5",
     "axios": "^0.19.1",
     "customize-cra": "^0.9.1",
