@@ -27,6 +27,7 @@ export default class HomeScreen extends Component {
       const userInfo = await GoogleSignin.signIn();
       console.log(userInfo);
     } catch (error) {
+      console.log(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -41,6 +42,7 @@ export default class HomeScreen extends Component {
 
   fetchToken = async () => {
     const fcmToken = await firebase.messaging().getToken();
+    console.log(fcmToken);
     if (fcmToken) {
       DeviceInfo.getAndroidId().then((device) => {
         //TODO: if data not to be updated, check user and use update
@@ -147,6 +149,19 @@ export default class HomeScreen extends Component {
         >
           <Text>
             Login Screen
+          </Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity 
+          onPress={()=>{
+            firebase.database().ref("").set({
+              "Kickme":"s,mksdm"
+            })
+          }}
+        >
+          <Text style={{fontSize:20}}>
+            Kickme
           </Text>
         </TouchableOpacity>
       </View >

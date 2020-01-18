@@ -53,9 +53,12 @@
     "react-native-screens": "^2.0.0-alpha.23",
     "react-native-sound": "^0.11.0",
     "react-native-tts": "^3.1.1",
+    "react-native-vector-icons": "^6.6.0",
     "react-native-webview": "^8.0.3",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^2.0.13"
+    "react-navigation-stack": "^2.0.13",
+    "react-navigation-tabs": "^2.7.0",
+    "rn-sliding-up-panel": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.7",
@@ -70,5 +73,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }

@@ -56,6 +56,8 @@ target 'Trav' do
 
   pod 'RNGoogleSignin', :path => '../node_modules/@react-native-community/google-signin'
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'TravTests' do
     inherit! :search_paths
     # Pods for testing
