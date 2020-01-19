@@ -2,6 +2,8 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import SignInScreen from '../src/auth/SignInScreen';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import HomeScreen from '../src/Home/HomeScreen';
 import DiscoverScreen from '../src/Home/DiscoverScreen';
@@ -24,7 +26,7 @@ const LoginNavigator = createStackNavigator({
       headerShown: false
     }
   },
-  Interest:{
+  Interest: {
     screen: InterestScreen,
     navigationOptions: {
       headerShown: false
@@ -36,13 +38,48 @@ const HomeNavigator = createBottomTabNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: ({ navigation }) => ({
-      title: "Inbox"
+      tabBarLabel: 'Home',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="home" color={tintColor} size={25} />
+      ),
     })
   },
-  Discover: { screen: DiscoverScreen },
-  Scan: { screen: ScanScreen },
-  Needs: { screen: NeedSceeen },
-  Profile: { screen: ProfileScreen }
+  Discover: {
+    screen: DiscoverScreen,
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: 'Discover',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="search" color={tintColor} size={25} />
+      ),
+    })
+  },
+  Scan: {
+    screen: ScanScreen,
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: 'Scan',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="camera" color={tintColor} size={25} />
+      ),
+    })
+  },
+  Needs: {
+    screen: NeedSceeen,
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: 'Needs',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="home" color={tintColor} size={25} />
+      ),
+    })
+  },
+  Profile: {
+    screen: ProfileScreen,
+    navigationOptions: ({ navigation }) => ({
+      tabBarLabel: 'Profile',
+      tabBarIcon: ({ tintColor }) => (
+        <Icon name="user" color={tintColor} size={25} />
+      ),
+    })
+  }
 }, {
   initialRouteName: "Home"
 });

@@ -7,8 +7,6 @@ import axios from 'axios';
 import { withNavigationFocus } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-
 class ScanScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -22,8 +20,6 @@ class ScanScreen extends React.Component {
         if (this.camera) {
             const options = { quality: 0.1, base64: false, pauseAfterCapture: true };
             const data = await this.camera.takePictureAsync(options);
-            // console.log(data.uri);
-            // this.sendData(data.uri);
             setTimeout(() => {
                 this.setState({
                     isLoading: false
