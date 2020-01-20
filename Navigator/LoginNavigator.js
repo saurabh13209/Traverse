@@ -14,10 +14,20 @@ import LoginForm from '../src/auth/LoginForm';
 import InterestScreen from '../src/auth/InterestScreen';
 import PlaceScreen from '../src/Places/PlaceScreen';
 import ContributionIndexScreen from '../src/Places/Contribute/ContributionIndex'
+import UpdateScreen from '../src/Places/Contribute/UpdateScreen';
+import NewInfoScreen from '../src/Places/Contribute/NewInfoScreen';
+import ReviewScreen from '../src/Places/ReviewScreen';
+import ItineraryIndex from '../src/Home/Itinerary/Index';
 
 const PlaceNavigator = createStackNavigator({
   HomeInner: {
     screen: HomeScreen,
+    navigationOptions: {
+      headerShown: false
+    }
+  },
+  Itinerary: {
+    screen: ItineraryIndex
   },
   PlaceInner: {
     screen: PlaceScreen,
@@ -30,16 +40,34 @@ const PlaceNavigator = createStackNavigator({
     navigationOptions: {
       headerShown: false
     }
+  },
+  Update: {
+    screen: UpdateScreen,
+    navigationOptions: {
+      headerShown: false
+    }
+  },
+  NewInfo: {
+    screen: NewInfoScreen,
+    navigationOptions: {
+      headerShown: false
+    }
+  },
+  Review: {
+    screen: ReviewScreen,
+    navigationOptions: {
+      headerShown: false
+    }
   }
 }, {
   initialRouteName: "HomeInner"
 })
 
 PlaceNavigator.navigationOptions = ({ navigation }) => {
-  let tabBarVisible = true;
+  let tabBarVisible = false;
   let routerName = navigation.state.routes[navigation.state.index].routeName;
-  if (routerName == "PlaceInner" || routerName == "ContributionIndex") {
-    tabBarVisible = false
+  if (routerName == "HomeInner") {
+    tabBarVisible = true
   }
   return {
     tabBarVisible

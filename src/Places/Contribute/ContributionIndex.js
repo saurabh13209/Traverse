@@ -1,15 +1,27 @@
 import React from 'react';
-import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
+var radio_props = [
+    { label: 'repeated information', value: 1 },
+    { label: 'bad grammar', value: 1 },
+    { label: 'wrong information', value: 1 },
+    { label: 'inappropriate info', value: 1 }
+];
 
 export default class ContributionIndexScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isContribut: false
+            isContribut: true,
+            checkBok1: [{ label: 'param1', value: 0 }],
+            checkBok2: [{ label: 'param2', value: 0 }],
+            checkBok3: [{ label: 'param3', value: 0 }],
+            checkBok4: [{ label: 'param4', value: 0 }],
         }
     }
+
 
     IsContributRender = () => {
         if (this.state.isContribut) {
@@ -40,26 +52,35 @@ export default class ContributionIndexScreen extends React.Component {
                         Options
                     </Text>
 
-                    <TouchableOpacity style={{
-                        flexDirection: 'row',
-                        paddingLeft: 15,
-                        paddingTop: 20,
-                        paddingBottom: 20,
-                        borderColor: '#ccc', borderWidth: 1, borderRadius: 10, marginTop: 20
-                    }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate("Update");
+                        }}
+                        style={{
+                            flexDirection: 'row',
+                            paddingLeft: 15,
+                            paddingTop: 20,
+                            paddingBottom: 20,
+                            borderColor: '#ccc', borderWidth: 1, borderRadius: 10, marginTop: 20
+                        }}>
                         <Icon style={{}} name="flag" size={20} color="#1E5AFF" />
 
                         <Text style={{ marginLeft: 20, fontFamily: 'CeraPro-Medium', color: '#1f1f1f' }}>
                             Request to update current details
                         </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{
-                        flexDirection: 'row',
-                        paddingLeft: 15,
-                        paddingTop: 20,
-                        paddingBottom: 20,
-                        borderColor: '#ccc', borderWidth: 1, borderRadius: 10, marginTop: 20
-                    }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate("NewInfo");
+                        }}
+
+                        style={{
+                            flexDirection: 'row',
+                            paddingLeft: 15,
+                            paddingTop: 20,
+                            paddingBottom: 20,
+                            borderColor: '#ccc', borderWidth: 1, borderRadius: 10, marginTop: 20
+                        }}>
                         <Icon style={{}} name="info" size={20} color="#1E5AFF" />
 
                         <Text style={{ marginLeft: 20, fontFamily: 'CeraPro-Medium', color: '#1f1f1f' }}>
@@ -95,7 +116,55 @@ export default class ContributionIndexScreen extends React.Component {
 
                     <Text style={{ fontFamily: 'CeraPro-Medium', marginTop: 30, color: '#1f1f1f' }}>
                         Whats wrong ?
-                </Text>
+                    </Text>
+
+                    <RadioForm
+                        style={{ marginTop: 20 }}
+                        radio_props={radio_props}
+                        initial={0}
+                        onPress={(value) => { this.setState({ value: value }) }}
+                        labelStyle={{ fontSize: 16, color: '#1f1f1f', fontFamily: 'CeraPro-Medium', }}
+                        animation={false}
+                    />
+
+                    <Text style={{ fontFamily: 'CeraPro-Medium', marginTop: 30, color: '#1f1f1f' }}>
+                        Comments
+                    </Text>
+
+                    <TextInput
+                        multiline={true}
+                        padding={10}
+                        style={{ marginTop: 20, borderColor: '#ccc', borderWidth: 1, borderRadius: 20 }}
+                    />
+
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.setState({
+                                isContribut: !this.state.isContribut
+                            })
+                        }}
+                        style={{
+                            width: 130,
+                            marginLeft: 230,
+                            marginTop: 10,
+                            padding: 10,
+                            paddingLeft: 20, paddingRight: 20,
+                            backgroundColor: '#ff8c20',
+                            borderRadius: 15
+                        }}
+                    >
+                        <View>
+                            <Text style={{
+                                fontFamily: "CeraPro-Medium",
+                                fontSize: 16,
+                                color: "#fff",
+                                alignSelf: 'center'
+                            }}>
+                                Report
+                                </Text>
+                        </View>
+                    </TouchableOpacity>
+
                 </View>
             );
         }
@@ -134,7 +203,7 @@ export default class ContributionIndexScreen extends React.Component {
                     </View>
                 </ImageBackground>
 
-                <View style={{ flexDirection: 'column', padding: 20 }}>
+                <ScrollView style={{ flexDirection: 'column', padding: 20 }}>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity
                             onPress={() => {
@@ -180,13 +249,13 @@ export default class ContributionIndexScreen extends React.Component {
                                     fontSize: 16,
                                     color: this.state.isContribut == false ? "#fff" : "#000",
                                 }}>
-                                    Contribute
+                                    Report an Issue
                                 </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
                     <this.IsContributRender />
-                </View>
+                </ScrollView>
             </View>
         );
     }

@@ -377,23 +377,17 @@ export default class PlaceScreen extends React.Component {
                         justifyContent: 'center', alignSelf: 'center',
                         backgroundColor: '#fff', elevation: 5
                     }}>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate("Review");
+                        }}
+                        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Icon
                             style={{ alignSelf: 'center', }}
-                            onPress={() => {
-                                if (this.state.imageIndex > 0) {
-                                    this.setState({
-                                        imageIndex: this.state.imageIndex - 1
-                                    })
-                                } else {
-                                    this.setState({
-                                        imageIndex: this.state.image.length - 1
-                                    })
-                                }
-                            }} name="star" size={20} color="#000" />
+                            name="star" size={20} color="#000" />
 
                         <Text style={{ fontSize: 10, marginTop: 5 }}>Add a review</Text>
-                    </View>
+                    </TouchableOpacity>
 
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Icon
@@ -420,7 +414,6 @@ export default class PlaceScreen extends React.Component {
                         <Icon
                             style={{ alignSelf: 'center', }}
                             name="plus" size={20} color="#000" />
-
                         <Text style={{ fontSize: 10, marginTop: 5 }}>Contribute</Text>
                     </TouchableOpacity>
 

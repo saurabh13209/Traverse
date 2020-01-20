@@ -56,6 +56,7 @@
     "react-native-reanimated": "^1.4.0",
     "react-native-safe-area-context": "^0.6.2",
     "react-native-screens": "^2.0.0-alpha.23",
+    "react-native-simple-radio-button": "^2.7.4",
     "react-native-sound": "^0.11.0",
     "react-native-tts": "^3.1.1",
     "react-native-vector-icons": "^6.6.0",
