@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, PermissionsAndroid, AppRegistry } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import BackgroundTimer from 'react-native-background-timer';
-import GeoLocation from '../GeoLocation';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default class HomeScreen extends React.Component {
@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
                 },
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log('You can use the camera');
+                this.requestCameraPermission2();
             } else {
                 console.log('Camera permission denied');
             }
@@ -33,6 +33,32 @@ export default class HomeScreen extends React.Component {
             console.warn(err);
         }
     }
+
+    requestCameraPermission2 = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+                {
+                    title: 'Location Api',
+                    message:
+                        'Cool Photo App needs access to your camera ' +
+                        'so you can take awesome pictures.',
+                    buttonNeutral: 'Ask Me Later',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                },
+            );
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+
+            } else {
+                console.log('Camera permission denied');
+            }
+        } catch (err) {
+            console.warn(err);
+        }
+    }
+
+
 
     getPostition = async () => {
         Geolocation.getCurrentPosition(
@@ -49,8 +75,11 @@ export default class HomeScreen extends React.Component {
     componentDidMount() {
         if (PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)) {
             if (PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION)) {
-                AppRegistry.registerComponent("Aweson", () => GeoLocation);
+                BackgroundTimer.runBackgroundTimer(() => {
+                    this.getPostition();
+                }, 3000)
             } else {
+                this.requestCameraPermission2();
             }
         } else {
             this.requestCameraPermission();
@@ -60,9 +89,15 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                <Text>
-                    HomeScreen
-                </Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.navigate("PlaceInner");
+                    }}
+                >
+                    <Text>
+                        Open Place
+                    </Text>
+                </TouchableOpacity>
             </View>
         );
     }

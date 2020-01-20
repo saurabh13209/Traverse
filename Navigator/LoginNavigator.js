@@ -12,6 +12,18 @@ import NeedSceeen from '../src/Home/NeedScreen';
 import ProfileScreen from '../src/Home/ProfileScreen';
 import LoginForm from '../src/auth/LoginForm';
 import InterestScreen from '../src/auth/InterestScreen';
+import PlaceScreen from '../src/Places/PlaceScreen';
+
+const PlaceNavigator = createStackNavigator({
+  HomeInner: {
+    screen: HomeScreen,
+  },
+  PlaceInner:{
+    screen: PlaceScreen
+  }
+}, {
+  initialRouteName: "HomeInner"
+})
 
 const LoginNavigator = createStackNavigator({
   index: {
@@ -36,7 +48,7 @@ const LoginNavigator = createStackNavigator({
 
 const HomeNavigator = createBottomTabNavigator({
   Home: {
-    screen: HomeScreen,
+    screen: PlaceNavigator,
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: 'Home',
       tabBarIcon: ({ tintColor }) => (
