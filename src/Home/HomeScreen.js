@@ -87,6 +87,7 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
+        // console.disableYellowBox = true;
         return (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                 <TouchableOpacity

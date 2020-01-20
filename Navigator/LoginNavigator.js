@@ -13,6 +13,7 @@ import ProfileScreen from '../src/Home/ProfileScreen';
 import LoginForm from '../src/auth/LoginForm';
 import InterestScreen from '../src/auth/InterestScreen';
 import PlaceScreen from '../src/Places/PlaceScreen';
+import ContributionIndexScreen from '../src/Places/Contribute/ContributionIndex'
 
 const PlaceNavigator = createStackNavigator({
   HomeInner: {
@@ -22,7 +23,12 @@ const PlaceNavigator = createStackNavigator({
     screen: PlaceScreen,
     navigationOptions: {
       headerShown: false
-
+    }
+  },
+  ContributionIndex: {
+    screen: ContributionIndexScreen,
+    navigationOptions: {
+      headerShown: false
     }
   }
 }, {
@@ -32,7 +38,7 @@ const PlaceNavigator = createStackNavigator({
 PlaceNavigator.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   let routerName = navigation.state.routes[navigation.state.index].routeName;
-  if (routerName == "PlaceInner") {
+  if (routerName == "PlaceInner" || routerName == "ContributionIndex") {
     tabBarVisible = false
   }
   return {
