@@ -412,15 +412,17 @@ export default class PlaceScreen extends React.Component {
 
                         <Text style={{ fontSize: 10, marginTop: 5 }}>Direction</Text>
                     </View>
-                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate("ContributionIndex");
+                        }}
+                        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Icon
                             style={{ alignSelf: 'center', }}
-                            onPress={() => {
-                                this.props.navigation.navigate("ContributionIndex");
-                            }} name="plus" size={20} color="#000" />
+                            name="plus" size={20} color="#000" />
 
                         <Text style={{ fontSize: 10, marginTop: 5 }}>Contribute</Text>
-                    </View>
+                    </TouchableOpacity>
 
                 </View>
 
