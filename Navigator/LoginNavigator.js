@@ -18,12 +18,27 @@ const PlaceNavigator = createStackNavigator({
   HomeInner: {
     screen: HomeScreen,
   },
-  PlaceInner:{
-    screen: PlaceScreen
+  PlaceInner: {
+    screen: PlaceScreen,
+    navigationOptions: {
+      headerShown: false
+
+    }
   }
 }, {
   initialRouteName: "HomeInner"
 })
+
+PlaceNavigator.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  let routerName = navigation.state.routes[navigation.state.index].routeName;
+  if (routerName == "PlaceInner") {
+    tabBarVisible = false
+  }
+  return {
+    tabBarVisible
+  }
+}
 
 const LoginNavigator = createStackNavigator({
   index: {

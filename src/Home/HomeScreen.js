@@ -75,9 +75,9 @@ export default class HomeScreen extends React.Component {
     componentDidMount() {
         if (PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)) {
             if (PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION)) {
-                BackgroundTimer.runBackgroundTimer(() => {
-                    this.getPostition();
-                }, 3000)
+                // BackgroundTimer.runBackgroundTimer(() => {
+                //     this.getPostition();
+                // }, 3000)
             } else {
                 this.requestCameraPermission2();
             }
