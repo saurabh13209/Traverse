@@ -1,14 +1,27 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, FlatList, Image, Dimensions, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+
 
 export default class ItineraryIndex extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showList: true
+            showList: true,
+            places: [],
+            maindata: []
         }
     }
+
+    getRandomInt = (max) => {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
+
+    componentDidMount() {
+        this.workk();
+    }
+
 
 
     getFirstItem = ({ item }) => {
@@ -21,14 +34,17 @@ export default class ItineraryIndex extends React.Component {
                         borderRadius: 20, borderColor: '#cccccc', borderWidth: 1
                     }}>
                         <Image
-                            style={{ flex: 3, height: 100, width: 100, borderBottomLeftRadius: 20, borderTopLeftRadius: 20 }}
-                            source={require("../../../images/beach.jpeg")} />
+                            style={{
+                                flex: 3, height: 100, width: 100, borderBottomLeftRadius: 20,
+                                borderTopLeftRadius: 20
+                            }}
+                            source={{ uri: item.Image }} />
                         <View style={{ flex: 7, flexDirection: 'column', justifyContent: 'center', left: 20 }}>
                             <Text style={{
                                 color: "#1f1f1f", fontFamily: 'CeraPro-Medium'
                                 , fontSize: 20
-                            }}>Miramar Beach</Text>
-                            <Text style={{ fontFamily: "CeraPro-Medium", fontSize: 16, color: "#1f1f1f" }}>Panji</Text>
+                            }}>{item.Title}</Text>
+                            <Text style={{ fontFamily: "CeraPro-Medium", fontSize: 16, color: "#1f1f1f" }}>{item.desc}</Text>
                         </View>
                     </View>
                     <ImageBackground
@@ -36,7 +52,7 @@ export default class ItineraryIndex extends React.Component {
                         style={{ marginLeft: 0, height: 50, width: 80 }}
                     >
                         <Text style={{ marginLeft: 20, marginTop: 15, fontFamily: 'CeraPro-Medium', fontSize: 16 }}>
-                            25 min
+                            37 min
                         </Text>
                     </ImageBackground>
                 </View>
@@ -50,13 +66,14 @@ export default class ItineraryIndex extends React.Component {
                     }}>
                         <Image
                             style={{ flex: 3, height: 100, width: 100, borderBottomLeftRadius: 20, borderTopLeftRadius: 20 }}
-                            source={require("../../../images/beach.jpeg")} />
+
+                            source={{ uri: item.Image }} />
                         <View style={{ flex: 7, flexDirection: 'column', justifyContent: 'center', left: 20 }}>
                             <Text style={{
                                 color: "#1f1f1f", fontFamily: 'CeraPro-Medium'
                                 , fontSize: 20
-                            }}>Miramar Beach</Text>
-                            <Text style={{ fontFamily: "CeraPro-Medium", fontSize: 16, color: "#1f1f1f" }}>Panji</Text>
+                            }}>{item.Title}</Text>
+                            <Text style={{ fontFamily: "CeraPro-Medium", fontSize: 16, color: "#1f1f1f" }}>{item.desc}</Text>
                         </View>
                     </View>
                     <ImageBackground
@@ -64,12 +81,36 @@ export default class ItineraryIndex extends React.Component {
                         style={{ marginLeft: 0, height: 50, width: 80 }}
                     >
                         <Text style={{ marginLeft: 20, marginTop: 15, fontFamily: 'CeraPro-Medium', fontSize: 16 }}>
-                            25 min
+                            56 min
                         </Text>
                     </ImageBackground>
                 </View>);
         }
 
+    }
+
+    workk = () => {
+        var interest = ["beach", "church", "fort"]
+        axios.get('http://192.168.43.249:5000/getClose')
+            .then((response) => {
+                for (var i = 0; i < interest.length; i++) {
+                    var twmp = 2;
+                    while (twmp > 0) {
+                        this.setState({
+                            places: [
+                                ...this.state.places,
+                                response.data[interest[i]][this.getRandomInt(6)]
+                            ]
+                        })
+                        twmp = twmp - 1;
+                    }
+                }
+
+                for (var i = 0; i < this.state.places; i++) {
+                    f
+                }
+
+            })
     }
 
     render() {
@@ -112,7 +153,7 @@ export default class ItineraryIndex extends React.Component {
 
                     <View style={{ flex: 1, flexDirection: 'column', marginLeft: 100 }}>
                         <Text style={{ fontFamily: 'CeraPro-Medium', fontSize: 14, color: '#cacaca' }}>From</Text>
-                        <Text style={{ marginTop: 5, fontFamily: 'CeraPro-Medium', fontSize: 18, color: '#1f1f1f' }}>20 Jan 2020</Text>
+                        <Text style={{ marginTop: 5, fontFamily: 'CeraPro-Medium', fontSize: 18, color: '#1f1f1f' }}>21 Jan 2020</Text>
                     </View>
                 </View>
 
@@ -121,39 +162,38 @@ export default class ItineraryIndex extends React.Component {
                     data={[
                         {
                             id: '1',
-                            title: "Kickme"
+                            Title: "Miramar Beach",
+                            Image: "https://cdn1.goibibo.com/t_tg_fs/goa-miramar-beach-147714498468-orijgp.jpg",
+                            desc: "Panjim"
                         }, {
                             id: '2',
-                            title: "Kickme"
+                            Title: "Basilica of Bom Jesus",
+                            Image: "https://www.holidify.com/images/cmsuploads/compressed/shutterstock_1073481062_20190822145857.jpg",
+                            desc: "Old Goa"
                         }, {
                             id: '3',
-                            title: "Kickme"
-                        }, {
-                            id: '2',
-                            title: "Kickme"
+                            Title: "Aguada Fort",
+                            Image: "https://www.holidify.com/images/cmsuploads/compressed/shutterstock_1065727913_20190822150731.jpg",
+                            desc: "Aguada"
                         }, {
                             id: '4',
-                            title: "Kickme"
-                        }, {
-                            id: '2',
-                            title: "Kickme"
+                            Title: "Colva Beach",
+                            Image: "https://i0.wp.com/www.itsgoa.com/wp-content/uploads/2018/04/colva-beach-goa-768x485-e1523259289213.jpg?fit=633%2C400&ssl=1",
+                            desc: "Colva"
                         }, {
                             id: '5',
-                            title: "Kickme"
-                        }, {
-                            id: '2',
-                            title: "Kickme"
+                            Title: "Baga Beach",
+                            Image: "https://www.tripsavvy.com/thmb/jVuYPKjTAokiT7A0ir27GkyY7cg=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-903398436-5c612e4a46e0fb00017dd31f.jpg",
+                            desc: "Baga"
                         }, {
                             id: '6',
-                            title: "Kickme"
-                        }, {
-                            id: '2',
-                            title: "Kickme"
-                        },
+                            Title: "Se Cathedral",
+                            Image: "https://upload.wikimedia.org/wikipedia/commons/7/72/Se%E2%80%99_Cathedral%2C_Goa.jpg",
+                            desc: "Old Goa"
+                        }
                     ]}
                     renderItem={({ item }) =>
                         <this.getFirstItem item={item} />
-
                     }
                     keyExtractor={item => item.id}
                 />

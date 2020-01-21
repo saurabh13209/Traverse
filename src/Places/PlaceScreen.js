@@ -36,51 +36,53 @@ export default class PlaceScreen extends React.Component {
     componentDidMount() {
         this.setState({
             placeName: this.props.navigation.getParam("placeMain"),
-            PlaceId: "Place7"
         })
 
-        // for (var i = 0; i < this.state.mapMain.length; i++) {
-        //     if (this.state.mapMain[i][0] === this.props.navigation.getParam("placeMain")) {
-
-
-        //         firebase.database()
-        //             .ref("Places/" + this.state.mapMain[i][1])
-        //             .once('value', (snap) => {
-        //                 this.setState({
-        // PlaceId:this.state.mapMain[i][0]
-        //                     Name: snap.val()["Name"],
-        //                     SrtDesc: snap.val()["SrtDesc"],
-        //                     Months: snap.val()["Months"],
-        //                     Price: snap.val()["BestPrice"],
-        //                     ThingsToDo: snap.val()["ThingsToDo"],
-        //                     Image: snap.val()["Image"]
-        //                 }, () => {
-        //                     console.log(this.state.Image);
-        //                 })
-        //             });
-
-
-        //     }
-        // }
-
-
-
-        firebase.database()
-            .ref("Places/Place7")
-            .once('value', (snap) => {
+        for (var i = 0; i < this.state.mapMain.length; i++) {
+            if (this.state.mapMain[i][0] === this.props.navigation.getParam("placeMain")) {
                 this.setState({
-                    Name: snap.val()["Name"],
-                    SrtDesc: snap.val()["SrtDesc"],
-                    Months: snap.val()["Months"],
-                    Price: snap.val()["BestPrice"],
-                    ThingsToDo: snap.val()["ThingsToDo"],
-                    Image: snap.val()["Image"],
-                    Hotels: snap.val()["Hotels"],
-                    Reviews: snap.val()["Reviews"]
-                }, () => {
-                    console.log(this.state.Hotels);
+                    PlaceId: this.state.mapMain[i][0]
                 })
-            });
+                firebase.database()
+                    .ref("Places/" + this.state.mapMain[i][1])
+                    .once('value', (snap) => {
+                        this.setState({
+                            Name: snap.val()["Name"],
+                            SrtDesc: snap.val()["SrtDesc"],
+                            Months: snap.val()["Months"],
+                            Price: snap.val()["BestPrice"],
+                            ThingsToDo: snap.val()["ThingsToDo"],
+                            Image: snap.val()["Image"],
+                            Hotels: snap.val()["Hotels"],
+                            Reviews: snap.val()["Reviews"]
+                        }, () => {
+                            console.log(this.state.Hotels);
+                        })
+                    });
+            }
+        }
+
+
+        //TODO: ON
+        //TODO: Comment Remove 
+        console.log(this.props.navigation.getParam("placeMain"));
+
+        // firebase.database()
+        //     .ref("Places/" + )
+        //     .once('value', (snap) => {  
+        //         this.setState({
+        //             Name: snap.val()["Name"],
+        //             SrtDesc: snap.val()["SrtDesc"],
+        //             Months: snap.val()["Months"],
+        //             Price: snap.val()["BestPrice"],
+        //             ThingsToDo: snap.val()["ThingsToDo"],
+        //             Image: snap.val()["Image"],
+        //             Hotels: snap.val()["Hotels"],
+        //             Reviews: snap.val()["Reviews"]
+        //         }, () => {
+        //             console.log(this.state.Hotels);
+        //         })
+        //     });
 
 
     }

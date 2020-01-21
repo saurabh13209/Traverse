@@ -242,7 +242,7 @@ export default class HomeScreen extends React.Component {
                             }}>
 
                             <Text style={{ alignSelf: 'center', color: '#514d4d', fontFamily: 'CeraPro-Medium' }}>
-                                Select date
+                                20/01/2020
                             </Text>
 
                         </TouchableOpacity>
@@ -261,7 +261,7 @@ export default class HomeScreen extends React.Component {
                         }}>
                             <Text
                                 style={{ alignSelf: 'center', color: '#514d4d', fontFamily: 'CeraPro-Medium' }}>
-                                Select date
+                                21/01/2020
                             </Text>
 
                         </TouchableOpacity>
@@ -310,13 +310,13 @@ export default class HomeScreen extends React.Component {
                             },
                             {
                                 id: '2',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://farm9.staticflickr.com/8255/8685512814_a52d4ea21e_z.jpg",
                                 title: 'First Item',
                                 place: "Place"
                             },
                             {
                                 id: '3',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://www.tripsavvy.com/thmb/jVuYPKjTAokiT7A0ir27GkyY7cg=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-903398436-5c612e4a46e0fb00017dd31f.jpg",
                                 title: 'First Item',
                                 place: "Place"
                             }
@@ -350,19 +350,19 @@ export default class HomeScreen extends React.Component {
                         data={[
                             {
                                 id: '1',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://www.remotetraveler.com/wp-content/uploads/2014/10/St-Francis-of-Assisi-Church-Old-Goa.jpg",
                                 title: 'Point your location',
                                 place: "Place"
                             },
                             {
                                 id: '2',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://i.ytimg.com/vi/GJ4pw60lC-A/maxresdefault.jpg",
                                 title: 'First Item',
                                 place: "Place"
                             },
                             {
                                 id: '3',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://www.trawell.in/admin/images/upload/121905445ReisMogos_Fort_Main.jpg",
                                 title: 'First Item',
                                 place: "Place"
                             }
@@ -395,13 +395,13 @@ export default class HomeScreen extends React.Component {
                         data={[
                             {
                                 id: '1',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://media-cdn.tripadvisor.com/media/attractions-splice-spp-540x360/07/01/4d/a0.jpg",
                                 title: 'Point your location',
                                 place: "Place"
                             },
                             {
                                 id: '2',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
+                                image: "https://images.thrillophilia.com/image/upload/s--OZcRcx1o--/c_fill,f_auto,fl_strip_profile,g_auto,h_600,q_auto,w_975/v1/images/photos/000/046/568/original/Featured_Image.jpg.jpg?1458197157",
                                 title: 'First Item',
                                 place: "Place"
                             },

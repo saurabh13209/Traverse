@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import ImagePicker from 'react-native-image-picker';
 import firebase from 'react-native-firebase';
 
+
 export default class ReviewScreen extends React.Component {
 
     constructor(props) {
@@ -288,14 +289,19 @@ export default class ReviewScreen extends React.Component {
 
                 <TouchableOpacity
                     onPress={() => {
-                        fi
 
-
-                        firebase.database().ref("Places/"+this.props.navigation.getParam("PlaceId")).update({
-                            "Reviews":{
-                                "Review1":"Kickee1"
-                            }
-                        })
+                        firebase.database().ref("Places/" + this.props.navigation.getParams("") + "/Reviews")
+                            .update({
+                                1: {
+                                    "Date": "21/01/2020",
+                                    "ReviewId": id,
+                                    "ReviewText": this.state.comment,
+                                    "Stars": this.state.stars,
+                                    "UserImage": "https://pbs.twimg.com/profile_images/1387018827/image_400x400.jpg"
+                                }
+                            }).then(() => {
+                                this.props.navigation.pop();
+                            })
                     }}
                     style={{
                         width: 130,

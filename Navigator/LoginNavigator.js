@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeScreen from '../src/Home/HomeScreen';
 import DiscoverScreen from '../src/Home/DiscoverScreen';
 import ScanScreen from '../src/Home/ScanScreen';
-import NeedSceeen from '../src/Home/NeedScreen';
+import NeedScreen from '../src/Home/NeedScreen';
 import ProfileScreen from '../src/Home/ProfileScreen';
 import LoginForm from '../src/auth/LoginForm';
 import InterestScreen from '../src/auth/InterestScreen';
@@ -18,6 +18,7 @@ import UpdateScreen from '../src/Places/Contribute/UpdateScreen';
 import NewInfoScreen from '../src/Places/Contribute/NewInfoScreen';
 import ReviewScreen from '../src/Places/ReviewScreen';
 import ItineraryIndex from '../src/Home/Itinerary/Index';
+import LocalTongue from '../src/Home/NeedsScreen/LocalTongue';
 
 const PlaceNavigator = createStackNavigator({
   HomeInner: {
@@ -100,6 +101,31 @@ ScanNavigator.navigationOptions = ({ navigation }) => {
 }
 
 
+
+
+const NeedNavigator = createStackNavigator({
+  index: {
+    screen: NeedScreen
+  },
+  Local: {
+    screen: LocalTongue
+  }
+}, {
+  initialRouteName: "index"
+});
+
+NeedNavigator.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = false;
+  let routerName = navigation.state.routes[navigation.state.index].routeName;
+  if (routerName == "index") {
+    tabBarVisible = true
+  }
+  return {
+    tabBarVisible
+  }
+}
+
+
 const LoginNavigator = createStackNavigator({
   index: {
     screen: SignInScreen,
@@ -150,7 +176,7 @@ const HomeNavigator = createBottomTabNavigator({
     })
   },
   Needs: {
-    screen: NeedSceeen,
+    screen: NeedNavigator,
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: 'Needs',
       tabBarIcon: ({ tintColor }) => (
