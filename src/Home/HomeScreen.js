@@ -15,6 +15,78 @@ export default class HomeScreen extends React.Component {
         }
     }
 
+
+    //   signIn = async () => {
+    //     try {
+    //       await GoogleSignin.hasPlayServices();
+    //       const userInfo = await GoogleSignin.signIn();
+    //       console.log(userInfo);
+    //     } catch (error) {
+    //       console.log(error);
+    //       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+    //         // user cancelled the login flow
+    //       } else if (error.code === statusCodes.IN_PROGRESS) {
+    //         // operation (e.g. sign in) is in progress already
+    //       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+    //         // play services not available or outdated
+    //       } else {
+    //         // some other error happened
+    //       }
+    //     }
+    //   };
+
+    fetchToken = async () => {
+        const fcmToken = await firebase.messaging().getToken();
+        console.log(fcmToken);
+        if (fcmToken) {
+            DeviceInfo.getAndroidId().then((device) => {
+                //TODO: if data not to be updated, check user and use update
+                //TODO: handle with care
+                firebase.database().ref("/Users/").once("value", (val) => {
+                    console.log(val);
+                    firebase.database().ref("/Users/" + device).set({
+                        "fcm": fcmToken
+                    })
+                })
+            })
+            const enabled = await firebase.messaging().hasPermission();
+            if (enabled) {
+                console.log("Granted");
+            } else {
+                try {
+                    await firebase.messaging().requestPermission();
+                } catch (error) {
+                }
+            }
+        } else {
+
+        }
+
+    }
+
+    createNotification = async () => {
+        this.removeNotificationDisplayedListener = firebase.notifications().onNotificationDisplayed((notification) => {
+        });
+        this.removeNotificationListener = firebase.notifications().onNotification((notification) => {
+            this.notificationOpen();
+        });
+    }
+
+    notificationOpen = async () => {
+        const x = await firebase.notifications().getInitialNotification();
+        console.log(x);
+        if (x.notification._data.name != undefined) {
+            Alert.alert(x.notification._data.name)
+            firebase.notifications().cancelAllNotifications();
+        }
+    }
+
+
+
+
+
+
+
     requestCameraPermission = async () => {
         try {
             const granted = await PermissionsAndroid.request(
@@ -78,6 +150,7 @@ export default class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
+        this.fetchToken();
         if (PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION)) {
             if (PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION)) {
                 // BackgroundTimer.runBackgroundTimer(() => {
@@ -121,7 +194,7 @@ export default class HomeScreen extends React.Component {
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
 
 
-                
+
                 <View
                     style={{
                         flex: 1, width: Dimensions.get('window').width, height: 60,

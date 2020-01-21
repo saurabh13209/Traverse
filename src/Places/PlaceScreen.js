@@ -5,15 +5,27 @@ import {
 } from 'react-native';
 var Carousel = require('react-native-carousel');
 import Icon from 'react-native-vector-icons/FontAwesome';
+import firebase from 'react-native-firebase';
 
 export default class PlaceScreen extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            image: ["https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://pix10.agoda.net/hotelImages/502/502774/502774_13090614420014896340.jpg"],
-            imageIndex: 0,
-            viewRef: null
+            ImageIndex: 0,
+            viewRef: null,
+            mapMain: [["aguada-fort", "Place15"], ["anjuna-beach", "Place2"], ["baga-beach", "Place5"], ["basilica-of-bom jesus", "Place7"], ["bogmalo-beach", "Place33"], ["cabo-de-gama-fort", "Place27"], ["chapora-fort", "Place35"], ["colva-beach", "Place31"], ["corjuem-fort", "Place28"], ["mangueshi-temple", "Place8"], ["our-lady- of-rosary-church", "Place18"], ["'our-lady-of-the-immaculate- conception-church", "Place17"], ["reis-magos-fort", "Place13"], ["se-cathedral", "Place16"], ["shantadurga-temple", "Place10"], ["sinquerim-beach", "Place30"], ["st-augustine-church", "Place20"], ["st-francis-of-assisi-church", "Place6"], ["vagator-beach", "Place32"]],
+
+            PlaceId: "",
+            Image: [],
+            Name: "",
+            SrtDesc: "",
+            Months: [],
+            Hotels: [],
+            Price: "",
+            ThingsToDo: [],
+            Hotels: [],
+            Reviews: []
         }
     }
 
@@ -22,7 +34,55 @@ export default class PlaceScreen extends React.Component {
     }
 
     componentDidMount() {
-        // this._panel.show();
+        this.setState({
+            placeName: this.props.navigation.getParam("placeMain"),
+            PlaceId: "Place7"
+        })
+
+        // for (var i = 0; i < this.state.mapMain.length; i++) {
+        //     if (this.state.mapMain[i][0] === this.props.navigation.getParam("placeMain")) {
+
+
+        //         firebase.database()
+        //             .ref("Places/" + this.state.mapMain[i][1])
+        //             .once('value', (snap) => {
+        //                 this.setState({
+        // PlaceId:this.state.mapMain[i][0]
+        //                     Name: snap.val()["Name"],
+        //                     SrtDesc: snap.val()["SrtDesc"],
+        //                     Months: snap.val()["Months"],
+        //                     Price: snap.val()["BestPrice"],
+        //                     ThingsToDo: snap.val()["ThingsToDo"],
+        //                     Image: snap.val()["Image"]
+        //                 }, () => {
+        //                     console.log(this.state.Image);
+        //                 })
+        //             });
+
+
+        //     }
+        // }
+
+
+
+        firebase.database()
+            .ref("Places/Place7")
+            .once('value', (snap) => {
+                this.setState({
+                    Name: snap.val()["Name"],
+                    SrtDesc: snap.val()["SrtDesc"],
+                    Months: snap.val()["Months"],
+                    Price: snap.val()["BestPrice"],
+                    ThingsToDo: snap.val()["ThingsToDo"],
+                    Image: snap.val()["Image"],
+                    Hotels: snap.val()["Hotels"],
+                    Reviews: snap.val()["Reviews"]
+                }, () => {
+                    console.log(this.state.Hotels);
+                })
+            });
+
+
     }
 
     Cour = () => {
@@ -45,24 +105,71 @@ export default class PlaceScreen extends React.Component {
         );
     }
 
+    ReviewsAllData = () => {
+        if (this.state.Reviews == undefined) {
+            return (
+                <Text style={{ fontFamily: 'CeraPro-Medium', textAlign: 'center', marginBottom: 10 }}>No reviews yet, Be the first to add one!</Text>
+            );
+        } else {
+            return (
+                <FlatList
+                    data={this.state.Reviews}
+                    style={{ paddingLeft: 16 }}
+                    renderItem={({ item }) =>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ flex: 1, flexDirection: 'column', top: 0, alignItems: 'center' }}>
+                                <Image source={{ uri: item.UserImage }} style={{
+                                    height: 40, width: 40,
+                                    borderRadius: 50
+                                }} />
+                                <View style={{
+                                    paddingBottom: 5, marginBottom: 10, marginTop: 10,
+                                    borderColor: '#000', borderRadius: 10, borderWidth: 1,
+                                    justifyContent: 'center', alignItems: 'center', flexDirection: 'row'
+                                }}>
+                                    <Text style={{ fontSize: 10, paddingLeft: 10, paddingRight: 5, paddingTop: 5 }}>
+                                        {item.Stars}
+                                    </Text>
+                                    <Icon style={{ marginRight: 10 }} name="star" size={10} color="#000" />
+                                </View>
+                            </View>
+                            <View style={{ flex: 4, flexDirection: 'column' }}>
+                                <Text style={{ color: '#121212', fontSize: 14, fontFamily: 'CeraPro-Regular', marginRight: 16 }}>
+                                    {item.ReviewText}
+                                </Text>
+
+                                <Text style={{
+                                    color: '#9a9d9c', fontFamily: 'CeraPro-Regular', fontSize: 14,
+                                    marginBottom: 10
+                                }}>{item.Date}</Text>
+
+                            </View>
+                        </View>
+                    }
+                    keyExtractor={item => item.ReviewId}
+                />
+            );
+        }
+    }
+
     render() {
         return (
             <View style={{ flex: 10, flexDirection: 'column' }}>
                 <ScrollView style={{ flexGrow: 2, flex: 1 }} nestedScrollEnabled={true} >
                     <ImageBackground
                         style={{ width: '100%', height: 250 }}
-                        source={{ uri: this.state.image[this.state.imageIndex % this.state.image.length] }}
+                        source={{ uri: this.state.Image[this.state.ImageIndex % this.state.Image.length] }}
                     >
                         <View style={{ flex: 1, justifyContent: 'space-between', paddingLeft: 10, paddingRight: 10, flexDirection: 'row', alignItems: 'center' }}>
                             <Icon
                                 onPress={() => {
-                                    if (this.state.imageIndex > 0) {
+                                    if (this.state.ImageIndex > 0) {
                                         this.setState({
-                                            imageIndex: this.state.imageIndex - 1
+                                            ImageIndex: this.state.ImageIndex - 1
                                         })
                                     } else {
                                         this.setState({
-                                            imageIndex: this.state.image.length - 1
+                                            ImageIndex: this.state.Image.length - 1
                                         })
                                     }
                                 }} name="arrow-left" size={20} color="#fff" />
@@ -70,7 +177,7 @@ export default class PlaceScreen extends React.Component {
                                 onPress={() => {
                                     console.log("Kickme");
                                     this.setState({
-                                        imageIndex: this.state.imageIndex + 1
+                                        ImageIndex: this.state.ImageIndex + 1
                                     })
                                 }} name="arrow-right" size={20} color="#fff" />
 
@@ -100,8 +207,8 @@ export default class PlaceScreen extends React.Component {
                                 marginTop: 10,
                                 marginLeft: 16
                             }}>
-                                Miramara Beach
-                    </Text>
+                                {this.state.Name}
+                            </Text>
                             <Text style={{ marginLeft: 16, fontFamily: 'CeraPro-Medium' }}>
                                 Panaji
                     </Text>
@@ -116,7 +223,7 @@ export default class PlaceScreen extends React.Component {
                         </View>
                     </View>
                     <Text style={{ margin: 16, marginTop: 10, color: '#9a9a9a', fontFamily: 'CeraPro-Medium' }}>
-                        Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea tak eum. Stet clt ea rebum. Stet clita magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea tak eum. Stet clt ea rebum. Stet clita
+                        {this.state.SrtDesc}
                     </Text>
 
                     <Text style={{ marginBottom: 10, marginTop: 15, marginLeft: 16, fontFamily: 'CeraPro-Bold', fontSize: 16 }}>
@@ -127,19 +234,19 @@ export default class PlaceScreen extends React.Component {
                         flex: 1, flexDirection: 'column', margin: 16, marginTop: 0, padding: 10,
                         borderColor: '#707070', borderRadius: 10, borderWidth: 1
                     }}>
-                        <Text style={{ fontFamily: 'CeraPro-Bold', color: "#1f1f1f", fontSize: 14 }}>Summer (June - July)</Text>
+                        <Text style={{ fontFamily: 'CeraPro-Bold', color: "#1f1f1f", fontSize: 14 }}>Summer ({this.state.Months[0]} - {this.state.Months[1]})</Text>
                         <Text style={{ color: '#9a9a9a', fontFamily: "CeraPro-Medium" }}>based on 30+ reviews</Text>
                     </View>
 
                     <Text style={{ marginBottom: 10, marginLeft: 16, marginTop: 15, fontFamily: 'CeraPro-Bold', fontSize: 16 }}>
-                        Best time to visit
+                        Best Price
                     </Text>
 
                     <View style={{
                         flex: 1, flexDirection: 'column', margin: 16, marginBottom: 0, marginTop: 0, padding: 10,
                         borderColor: '#707070', borderRadius: 10, borderWidth: 1
                     }}>
-                        <Text style={{ fontFamily: 'CeraPro-Bold', color: "#1f1f1f", fontSize: 14 }}>Summer (June - July)</Text>
+                        <Text style={{ fontFamily: 'CeraPro-Bold', color: "#1f1f1f", fontSize: 14 }}>{this.state.Price}</Text>
                         <Text style={{ color: '#9a9a9a', fontFamily: "CeraPro-Medium" }}>based on 30+ reviews</Text>
                     </View>
 
@@ -149,26 +256,7 @@ export default class PlaceScreen extends React.Component {
                     </View>
 
                     <FlatList
-                        data={[
-                            {
-                                id: '1',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                title: 'First Item',
-                                place: "Place"
-                            },
-                            {
-                                id: '2',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                title: 'First Item',
-                                place: "Place"
-                            },
-                            {
-                                id: '3',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                title: 'First Item',
-                                place: "Place"
-                            }
-                        ]}
+                        data={this.state.ThingsToDo}
                         style={{ paddingLeft: 16 }}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
@@ -176,11 +264,11 @@ export default class PlaceScreen extends React.Component {
                             <TouchableOpacity style={{ marginRight: 20 }}>
                                 <View style={{ flex: 1, flexDirection: 'column' }}>
                                     <Image
-                                        source={{ uri: item.image }}
+                                        source={{ uri: item.Image }}
                                         style={{ height: 130, width: 165, borderRadius: 10 }}
                                     />
-                                    <Text style={{ fontFamily: 'CeraPro-Medium', marginTop: 5 }}>{item.title}</Text>
-                                    <Text style={{ fontFamily: 'CeraPro-Regular', color: '#1f1f1f', fontSize: 10 }}>{item.place}</Text>
+                                    <Text style={{ fontFamily: 'CeraPro-Medium', marginTop: 5 }}>{item.Name}</Text>
+                                    <Text style={{ fontFamily: 'CeraPro-Regular', color: '#1f1f1f', fontSize: 10 }}>{item.Location}</Text>
                                 </View>
                             </TouchableOpacity>
                         }
@@ -198,26 +286,7 @@ export default class PlaceScreen extends React.Component {
                     </View>
 
                     <FlatList
-                        data={[
-                            {
-                                id: '1',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                title: 'First Item',
-                                place: "Place"
-                            },
-                            {
-                                id: '2',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                title: 'First Item',
-                                place: "Place"
-                            },
-                            {
-                                id: '3',
-                                image: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                title: 'First Item',
-                                place: "Place"
-                            }
-                        ]}
+                        data={this.state.Hotels}
                         style={{ paddingLeft: 16 }}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
@@ -225,11 +294,11 @@ export default class PlaceScreen extends React.Component {
                             <TouchableOpacity style={{ marginRight: 20 }}>
                                 <View style={{ flex: 1, flexDirection: 'column' }}>
                                     <Image
-                                        source={{ uri: item.image }}
+                                        source={{ uri: item.Image }}
                                         style={{ height: 130, width: 165, borderRadius: 10 }}
                                     />
-                                    <Text style={{ fontFamily: 'CeraPro-Medium', marginTop: 5 }}>{item.title}</Text>
-                                    <Text style={{ fontFamily: 'CeraPro-Regular', color: '#1f1f1f', fontSize: 10 }}>{item.place}</Text>
+                                    <Text style={{ fontFamily: 'CeraPro-Medium', marginTop: 5 }}>{item.Name}</Text>
+                                    <Text style={{ fontFamily: 'CeraPro-Regular', color: '#1f1f1f', fontSize: 10 }}>{item.Location}</Text>
                                 </View>
                             </TouchableOpacity>
                         }
@@ -243,71 +312,18 @@ export default class PlaceScreen extends React.Component {
                         <Text style={{ fontFamily: 'CeraPro-Bold', fontSize: 13 }}>view all</Text>
                     </View>
 
-                    <FlatList
-                        data={[
-                            {
-                                ReviewId: "1",
-                                UserImage: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                Star: '3',
-                                Reviews: "Rishabh was found out to be a very tasteful developer and his contribution proved to be very valuable to the company. I would wholeheartedly recommend Rishabh for anyone who is looking for a creative coder.",
-                                Image: ["https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg"],
-                                date: "19/11/1999"
-                            },
-                            {
-                                ReviewId: "2",
-                                UserImage: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                Star: '3',
-                                Reviews: "Rishabh was found out to be a very tasteful developer and his contribution proved to be very valuable to the company. I would wholeheartedly recommend Rishabh for anyone who is looking for a creative coder.",
-                                Image: ["https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg"],
-                                date: "19/11/1999"
-                            },
-                            {
-                                ReviewId: "3",
-                                UserImage: "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg",
-                                Star: '3',
-                                Reviews: "Rishabh was found out to be a very tasteful developer and his contribution proved to be very valuable to the company. I would wholeheartedly recommend Rishabh for anyone who is looking for a creative coder.",
-                                Image: ["https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg", "https://www.thegoavilla.com/static/img/articles/goa-agonda-beach.jpg"],
-                                date: "19/11/1999"
-                            }
-                        ]}
-                        style={{ paddingLeft: 16 }}
-                        renderItem={({ item }) =>
-                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={{ flex: 1, flexDirection: 'column', top: 0, alignItems: 'center' }}>
-                                    <Image source={{ uri: item.UserImage }} style={{
-                                        height: 40, width: 40,
-                                        borderRadius: 50
-                                    }} />
-                                    <View style={{
-                                        paddingBottom: 5, marginBottom: 10, marginTop: 10,
-                                        borderColor: '#000', borderRadius: 10, borderWidth: 1,
-                                        justifyContent: 'center', alignItems: 'center', flexDirection: 'row'
-                                    }}>
-                                        <Text style={{ fontSize: 10, paddingLeft: 10, paddingRight: 5, paddingTop: 5 }}>
-                                            27
-                                        </Text>
-                                        <Icon style={{ marginRight: 10 }} name="star" size={10} color="#000" />
-                                    </View>
-                                </View>
-                                <View style={{ flex: 4, flexDirection: 'column' }}>
-                                    <Text style={{ color: '#121212', fontSize: 14, fontFamily: 'CeraPro-Regular', marginRight: 16 }}>
-                                        {item.Reviews}
-                                    </Text>
+                    <this.ReviewsAllData />
 
-                                    <Text style={{ color: '#9a9d9c', fontFamily: 'CeraPro-Regular', fontSize: 14, marginBottom: 10 }}>{item.date}</Text>
-
-                                </View>
-                            </View>
-                        }
-                        keyExtractor={item => item.id}
-                    />
-
-                    <TouchableOpacity>
+                    {/* <TouchableOpacity>
                         <Text style={{ borderColor: '#1f1f1f', borderWidth: 1, margin: 16, paddingTop: 10, paddingBottom: 10, borderRadius: 10, fontFamily: 'CeraPro-Medium', fontSize: 14, textAlign: 'center' }}>
                             view 4 more ratings
                             </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
+                    </TouchableOpacity> */}
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.navigation.navigate("Review", { PlaceId: this.state.PlaceId });
+                        }}
+                    >
                         <Text style={{ borderColor: '#1f1f1f', borderWidth: 1, margin: 16, marginTop: 0, paddingTop: 10, paddingBottom: 10, borderRadius: 10, fontFamily: 'CeraPro-Medium', fontSize: 14, textAlign: 'center' }}>
                             Write a review...
                             </Text>
@@ -353,7 +369,7 @@ export default class PlaceScreen extends React.Component {
 
                     <TouchableOpacity>
                         <Text style={{ borderColor: '#1f1f1f', borderWidth: 1, margin: 16, marginTop: 0, paddingTop: 10, paddingBottom: 10, borderRadius: 10, fontFamily: 'CeraPro-Medium', fontSize: 14, textAlign: 'center' }}>
-                            Write a review...
+                            10 more
                             </Text>
                     </TouchableOpacity>
 
@@ -379,7 +395,7 @@ export default class PlaceScreen extends React.Component {
                     }}>
                     <TouchableOpacity
                         onPress={() => {
-                            this.props.navigation.navigate("Review");
+                            this.props.navigation.navigate("Review", { PlaceId: this.state.PlaceId });
                         }}
                         style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <Icon
@@ -393,13 +409,13 @@ export default class PlaceScreen extends React.Component {
                         <Icon
                             style={{ alignSelf: 'center', }}
                             onPress={() => {
-                                if (this.state.imageIndex > 0) {
+                                if (this.state.ImageIndex > 0) {
                                     this.setState({
-                                        imageIndex: this.state.imageIndex - 1
+                                        imageIndex: this.state.ImageIndex - 1
                                     })
                                 } else {
                                     this.setState({
-                                        imageIndex: this.state.image.length - 1
+                                        imageIndex: this.state.Image.length - 1
                                     })
                                 }
                             }} name="map-marker" size={20} color="#000" />

@@ -74,6 +74,32 @@ PlaceNavigator.navigationOptions = ({ navigation }) => {
   }
 }
 
+const ScanNavigator = createStackNavigator({
+  index: {
+    screen: ScanScreen
+  },
+  Place: {
+    screen: PlaceScreen,
+    navigationOptions: {
+      headerShown: false
+    }
+  }
+}, {
+  initialRouteName: "index"
+});
+
+ScanNavigator.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = false;
+  let routerName = navigation.state.routes[navigation.state.index].routeName;
+  if (routerName == "index") {
+    tabBarVisible = true
+  }
+  return {
+    tabBarVisible
+  }
+}
+
+
 const LoginNavigator = createStackNavigator({
   index: {
     screen: SignInScreen,
@@ -115,7 +141,7 @@ const HomeNavigator = createBottomTabNavigator({
     })
   },
   Scan: {
-    screen: ScanScreen,
+    screen: ScanNavigator,
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: 'Scan',
       tabBarIcon: ({ tintColor }) => (

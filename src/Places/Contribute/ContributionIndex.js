@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, ImageBackground, Image, TouchableOpacity, TextInput, ScrollView, ToastAndroid } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 
@@ -139,9 +139,11 @@ export default class ContributionIndexScreen extends React.Component {
 
                     <TouchableOpacity
                         onPress={() => {
-                            this.setState({
-                                isContribut: !this.state.isContribut
-                            })
+                            ToastAndroid.showWithGravity(
+                                'All Your Base Are Belong To Us',
+                                ToastAndroid.SHORT,
+                                ToastAndroid.CENTER,
+                            );
                         }}
                         style={{
                             width: 130,

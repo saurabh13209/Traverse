@@ -20,14 +20,16 @@ class ScanScreen extends React.Component {
         if (this.camera) {
             const options = { quality: 0.1, base64: false, pauseAfterCapture: true };
             const data = await this.camera.takePictureAsync(options);
-            setTimeout(() => {
-                this.setState({
-                    isLoading: false
-                }, () => {
-                    this._panel.show();
-                    this.camera.resumePreview();
-                })
-            }, 2000)
+            // setTimeout(() => {
+            //     this.setState({
+            //         isLoading: false
+            //     }, () => {
+            //         this.props.navigation.navigate("Place");
+            //         // this.camera.resumePreview();
+            //     })
+            // }, 2000)
+            // console.log(data.uri);
+            this.sendData(data.uri);
         }
     }
 
@@ -40,20 +42,23 @@ class ScanScreen extends React.Component {
         });
 
         axios({
-            url: "http://10.160.28.113:5000/upload",
+            url: "http://192.168.43.249:5000/upload",
             data: form,
             method: 'post',
             headers: { 'X-Custom-Header': 'foobar' }
         }).then((res) => {
             this.setState({
                 result: res.data
+            }, () => {
+                this.props.navigation.navigate("Place", { placeMain: res.data });
             })
         })
     }
 
     isLoadingView() {
         if (this.state.isLoading) {
-            return <ActivityIndicator size="large" />
+            // return <ActivityIndicator size="large" />
+            return null
         } else {
             return null;
         }
@@ -110,7 +115,7 @@ class ScanScreen extends React.Component {
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                <View style={{ flex: 10, width: 100, flexDirection: 'column' }} >
+                <View style={{ flex: 10, width: 110, flexDirection: 'column' }} >
                     <View style={{
                         flexDirection: 'row',
                         flex: 10,
@@ -129,7 +134,7 @@ class ScanScreen extends React.Component {
                                         cameraType: this.state.cameraType == RNCamera.Constants.Type.front ? RNCamera.Constants.Type.back : RNCamera.Constants.Type.front
                                     })
                                 }}
-                                style={{ position: 'absolute', left: 180 }} name="repeat" size={45} color="#000" />
+                                style={{ position: 'absolute', left: 160 }} name="repeat" size={45} color="#000" />
                             <Icon
                                 onPress={() => {
                                     this.setState({
@@ -165,33 +170,10 @@ class ScanScreen extends React.Component {
                                         this.sendData(response.uri);
                                     }
                                 });
-                            }} style={{ position: 'absolute', left: -180 }} name="photo" size={45} color="#000" />
+                            }} style={{ position: 'absolute', left: -160 }} name="photo" size={45} color="#000" />
                         </View>
                     </View>
                 </View >
-                <SlidingUpPanel
-                    ref={c => this._panel = c}>
-                    <View style={{
-                        flex: 1,
-                        backgroundColor: '#fff',
-                    }}>
-                        <Image style={{ height: 400, resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                        <Text
-                            style={{ marginLeft: 20, marginTop: 20, fontFamily: 'CeraPro-Bold', fontSize: 30 }}
-                        >Name Place</Text>
-                        <Text style={{ marginLeft: 20, marginRight: 20, marginTop: 10 }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        </Text>
-                        <Text
-                            style={{ marginLeft: 20, marginTop: 30, fontFamily: 'CeraPro-Bold', fontSize: 30 }}
-                        >About</Text>
-                        <Text style={{ marginLeft: 20, marginRight: 20, marginTop: 10 }}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-                        </Text>
-
-                    </View>
-                </SlidingUpPanel>
-
             </View>
         );
     }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput, ImageBackground, FlatList, Picker } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ImagePicker from 'react-native-image-picker';
+import firebase from 'react-native-firebase';
 
 export default class ReviewScreen extends React.Component {
 
@@ -9,7 +11,9 @@ export default class ReviewScreen extends React.Component {
         this.state = {
             stars: 0,
             month: 1,
-
+            comment: "",
+            bestTime: [],
+            amount: "",
         }
     }
 
@@ -18,13 +22,23 @@ export default class ReviewScreen extends React.Component {
             return (
                 <View style={{ height: 50, width: 160, borderColor: '#1e5aff', borderWidth: 1, borderRadius: 20 }}>
                     <Picker
-                        selectedValue={this.state.language}
+                        selectedValue={this.state.bestTime[0]}
                         style={{ height: 50, width: 160 }}
                         onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ language: itemValue })
+                            this.setState({ bestTime: [itemValue] })
                         }>
-                        <Picker.Item label="Select month" value="java" />
-                        <Picker.Item label="JavaScript" value="js" />
+                        <Picker.Item label="January" value="January" />
+                        <Picker.Item label="February" value="February" />
+                        <Picker.Item label="March" value="March" />
+                        <Picker.Item label="April" value="April" />
+                        <Picker.Item label="May" value="May" />
+                        <Picker.Item label="June" value="June" />
+                        <Picker.Item label="July" value="July" />
+                        <Picker.Item label="August" value="August" />
+                        <Picker.Item label="September" value="September" />
+                        <Picker.Item label="October" value="October" />
+                        <Picker.Item label="Novermber" value="Novermber" />
+                        <Picker.Item label="December" value="December" />
                     </Picker>
                 </View>
             );
@@ -33,24 +47,53 @@ export default class ReviewScreen extends React.Component {
                 <View style={{ flexDirection: 'row' }}>
                     <View style={{ height: 50, width: 160, borderColor: '#1e5aff', borderWidth: 1, borderRadius: 20 }}>
                         <Picker
-                            selectedValue={this.state.language}
+                            selectedValue={this.state.bestTime[0]}
                             style={{ height: 50, width: 160 }}
                             onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ language: itemValue })
+                                this.setState({
+                                    bestTime: [
+                                        itemValue
+                                    ]
+                                })
                             }>
-                            <Picker.Item label="Select month" value="java" />
-                            <Picker.Item label="JavaScript" value="js" />
+                            <Picker.Item label="January" value="January" />
+                            <Picker.Item label="February" value="February" />
+                            <Picker.Item label="March" value="March" />
+                            <Picker.Item label="April" value="April" />
+                            <Picker.Item label="May" value="May" />
+                            <Picker.Item label="June" value="June" />
+                            <Picker.Item label="July" value="July" />
+                            <Picker.Item label="August" value="August" />
+                            <Picker.Item label="September" value="September" />
+                            <Picker.Item label="October" value="October" />
+                            <Picker.Item label="Novermber" value="Novermber" />
+                            <Picker.Item label="December" value="December" />
                         </Picker>
                     </View>
                     <View style={{ height: 50, width: 160, borderColor: '#1e5aff', borderWidth: 1, borderRadius: 20 }}>
                         <Picker
-                            selectedValue={this.state.language}
+                            selectedValue={this.state.bestTime[1]}
                             style={{ height: 50, width: 160 }}
                             onValueChange={(itemValue, itemIndex) =>
-                                this.setState({ language: itemValue })
+                                this.setState({
+                                    bestTime: [
+                                        ...this.state.bestTime,
+                                        itemValue
+                                    ]
+                                })
                             }>
-                            <Picker.Item label="Select month" value="java" />
-                            <Picker.Item label="JavaScript" value="js" />
+                            <Picker.Item label="January" value="January" />
+                            <Picker.Item label="February" value="February" />
+                            <Picker.Item label="March" value="March" />
+                            <Picker.Item label="April" value="April" />
+                            <Picker.Item label="May" value="May" />
+                            <Picker.Item label="June" value="June" />
+                            <Picker.Item label="July" value="July" />
+                            <Picker.Item label="August" value="August" />
+                            <Picker.Item label="September" value="September" />
+                            <Picker.Item label="October" value="October" />
+                            <Picker.Item label="Novermber" value="Novermber" />
+                            <Picker.Item label="December" value="December" />
                         </Picker>
                     </View>
                 </View>
@@ -82,7 +125,7 @@ export default class ReviewScreen extends React.Component {
                             fontFamily: 'CeraPro-Bold', marginTop: 30, marginLeft: 20,
                             fontSize: 22, color: 'white'
                         }}>
-                            Contribute knowledge
+                            Review
                         </Text>
 
                         <Text style={{ marginLeft: 20, marginTop: 5, fontFamily: 'CeraPro-Medium', fontSize: 16, color: "white" }}>
@@ -144,6 +187,12 @@ export default class ReviewScreen extends React.Component {
                 </Text>
 
                 <TextInput
+                    onChangeText={(val) => {
+                        this.setState({
+                            comment: val
+                        })
+                    }}
+                    value={this.state.comment}
                     style={{ borderColor: '#ccc', borderWidth: 1, borderRadius: 20, marginLeft: 20, marginRight: 20 }}
                     multiline={true}
                     numberOfLines={5}
@@ -176,14 +225,14 @@ export default class ReviewScreen extends React.Component {
 
 
                 <Text style={{ marginBottom: 10, marginTop: 25, marginLeft: 16, fontFamily: 'CeraPro-Bold', fontSize: 16 }}>
-                    Best time to visit
+                    Approximate amount spent
                 </Text>
                 <View style={{ height: 50, width: 360, marginLeft: 20, borderColor: '#1e5aff', borderWidth: 1, borderRadius: 20 }}>
                     <Picker
-                        selectedValue={this.state.language}
+                        selectedValue={this.state.amount}
                         style={{ height: 50, width: 360 }}
                         onValueChange={(itemValue, itemIndex) =>
-                            this.setState({ language: itemValue })
+                            this.setState({ amount: itemValue })
                         }>
                         <Picker.Item label="select a Amount" value="0" />
                         <Picker.Item label="₹1000 to ₹5000" value="₹1000 to ₹5000" />
@@ -197,11 +246,36 @@ export default class ReviewScreen extends React.Component {
                     Add Photos (optional)
                 </Text>
 
-                <View style={{
-                    borderColor: '#1e5aff', borderWidth: 1, 
-                    paddingTop: 5, paddingBottom: 5,
-                    borderRadius: 5, marginLeft: 20, marginRight: 20
-                }}>
+                <TouchableOpacity
+                    onPress={() => {
+                        const options = {
+                            title: 'Select Avatar',
+                            customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+                            storageOptions: {
+                                skipBackup: true,
+                                path: 'images',
+                            },
+                        };
+
+                        ImagePicker.launchImageLibrary({}, (response) => {
+                            console.log('Response = ', response);
+
+                            if (response.didCancel) {
+                                console.log('User cancelled image picker');
+                            } else if (response.error) {
+                                console.log('ImagePicker Error: ', response.error);
+                            } else if (response.customButton) {
+                                console.log('User tapped custom button: ', response.customButton);
+                            } else {
+                                console.log(response.uri);
+                            }
+                        });
+                    }}
+                    style={{
+                        borderColor: '#1e5aff', borderWidth: 1,
+                        paddingTop: 5, paddingBottom: 5,
+                        borderRadius: 5, marginLeft: 20, marginRight: 20
+                    }}>
                     <Icon
                         onPress={() => {
                             this.setState({
@@ -210,12 +284,17 @@ export default class ReviewScreen extends React.Component {
                         }}
                         style={{ marginRight: 20, alignSelf: 'center', marginLeft: 10 }}
                         name="plus" size={25} color="#1e5aff" />
-                </View>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => {
-                        this.setState({
-                            isContribut: !this.state.isContribut
+                        fi
+
+
+                        firebase.database().ref("Places/"+this.props.navigation.getParam("PlaceId")).update({
+                            "Reviews":{
+                                "Review1":"Kickee1"
+                            }
                         })
                     }}
                     style={{
@@ -235,7 +314,7 @@ export default class ReviewScreen extends React.Component {
                             color: "#fff",
                             alignSelf: 'center'
                         }}>
-                            Report
+                            Review
                                 </Text>
                     </View>
                 </TouchableOpacity>
