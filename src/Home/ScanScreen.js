@@ -6,7 +6,10 @@ import ImagePicker from 'react-native-image-picker';
 import axios from 'axios';
 import { withNavigationFocus } from "react-navigation";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { observer } from 'mobx-react';
+import HomeStore from '../../stores/HomeStore'
 
+@observer
 class ScanScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -42,7 +45,7 @@ class ScanScreen extends React.Component {
         });
 
         axios({
-            url: "http://192.168.43.249:5000/upload",
+            url: "http://"+ HomeStore.ipAddress +"/upload",
             data: form,
             method: 'post',
             headers: { 'X-Custom-Header': 'foobar' }

@@ -1,211 +1,109 @@
 import React from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, Keyboard, FlatList } from 'react-native';
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+import qs from 'qs';
+import HomeStore from '../../../stores/HomeStore'
+import { observer } from 'mobx-react';
 
 @observer
 export default class ChatBot extends React.Component {
 
     constructor(props) {
         super(props);
-        chatStore.chatData = []
-
-
         this.state = {
-            keyboardOffset: 0,
-            listSize: 50,
-            id: "",
-            text: "",
+            text: ""
         }
-        this._keyboardDidShow = this._keyboardDidShow.bind(this)
-        this._keyboardDidHide = this._keyboardDidHide.bind(this)
+    }
+
+    requestBody = {
+        id: "Whats the best time to visit Goa"
+    }
+
+    config = {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
     }
 
 
-    // _retrieveData = async (val) => {
-    //     try {
-    //         const value = await AsyncStorage.getItem(val);
-    //         if (value !== null) {
-    //             return value
-    //         }
-    //     } catch (error) {
-    //     }
-    // };
-
-
-    _keyboardDidShow(event) {
-        this.setState({
-            listSize: -150,
-            keyboardOffset: event.endCoordinates.height
-        })
-    }
-
-    _keyboardDidHide() {
-        this.setState({
-            listSize: 50,
-            keyboardOffset: 0,
-        })
-    }
-
-    componentDidMount() {
-        this._retrieveData(Key.id).then((val) => {
-            this.setState({
-                id: val
-            })
-        })
-
-        this.keyboardDidShowListener = Keyboard.addListener(
-            'keyboardDidShow',
-            this._keyboardDidShow,
-        );
-        this.keyboardDidHideListener = Keyboard.addListener(
-            'keyboardDidHide',
-            this._keyboardDidHide,
-        );
-    }
-
-    componentWillMount() {
-        firebase.database().ref("Chats/" + this.props.navigation.state.params.id + "/Conv/")
-            .orderByChild("time")
-            .startAt(1572360000000)
-            .limitToLast(20)
-            .on('value', ((snap) => {
-                if (snap.val()) {
-                    chatStore.chatData = [];
-                    const arr = Object.keys(snap.val());
-                    for (var i = 0; i < arr.length; i++) {
-                        chatStore.chatData = [
-                            ...chatStore.chatData,
-                            Object(snap.val()[arr[i]])
-                        ]
-                    }
+    request = () => {
+        console.log("Kicke")
+        axios.post(
+            "https://apollo6.glitch.me/",
+            qs.stringify(this.requestBody),
+            this.config
+        ).then((res) => {
+            HomeStore.chatBot = [
+                ...HomeStore.chatBot,
+                {
+                    id: HomeStore.chatBot.length,
+                    Text: res.data.fulfillmentText,
+                    sent: false
                 }
-
-            }))
+            ]
+        }).catch((err) => console.log(err))
     }
 
-    componentWillUnmount() {
-        this.keyboardDidShowListener.remove();
-        this.keyboardDidHideListener.remove();
-    }
-
-    setUi(item) {
-        if (item.from == this.state.id) {
+    isSent = ({ item }) => {
+        if (item.sent) {
             return (
-                <SendMessage data={item} />
-            );
+                <View style={{
+                    padding: 10, backgroundColor: '#f5f5f5',
+                    borderRadius: 10, marginTop: 10
+                }}>
+                    <Text style={{ fontSize: 16, fontFamily: 'CeraPro-Regular', color: 'black' }}>You : {item.Text}</Text>
+                </View>);
         } else {
             return (
-                <RecMessage data={item} />
-            );
+                <View style={{
+                    padding: 10, backgroundColor: '#f5f5f5',
+                    borderRadius: 10, marginTop: 10
+                }}>
+                    <Text style={{ fontSize: 16, fontFamily: 'CeraPro-Regular', color: 'black' }}>Apollo : {item.Text}</Text>
+                </View>)
         }
     }
-
-
-    checkNoti = (i, j) => {
-        if (getInfo(chatStore.OrgsList[i]["member"][j])["pos"] === "head") {
-            firebase.database().ref("Head/" + (chatStore.OrgsList[i]["member"][j]).toUpperCase() + "/online/")
-                .once("value", (snap) => {
-                    if (snap.val() == false) {
-                        sendNotification({
-                            ref: "Head/" + (chatStore.OrgsList[i]["member"][j]).toUpperCase() + "/expo",
-                            title: this.state.id,
-                            body: this.state.text,
-                            data: {},
-                        });
-                    }
-                }).then(() => {
-                    if (j < chatStore.OrgsList[i]["member"].length) {
-                        this.checkNoti(i, j + 1);
-                    }
-                })
-        } else {
-            firebase.database().ref("member/" + getInfo(chatStore.OrgsList[i]["member"][j])["domain"] + "/" + (chatStore.OrgsList[i]["member"][j]).toUpperCase() + "/online/").once("value", (snap) => {
-                if (snap.val() == false) {
-                    sendNotification({
-                        ref: "member/" + getInfo(chatStore.OrgsList[i]["member"][j])["domain"] + "/" + (chatStore.OrgsList[i]["member"][j]).toUpperCase() + "/expo",
-                        title: this.state.id,
-                        body: this.state.text,
-                        data: {},
-                    }).then(() => {
-                        this.props.navigation.navigate('Login');
-                    });
-                }
-            })
-        }
-    }
-
 
     render() {
         return (
-            <KeyboardAvoidingView style={{ flex: 1, flexDirection: 'column' }} behavior="padding" enabled>
-                <View style={{ backgroundColor: '#111', paddingBottom: this.state.keyboardOffset + this.state.listSize, flex: 1 }}>
-                    <FlatList
-                        ref="flatList"
-                        onContentSizeChange={() => this.refs.flatList.scrollToEnd()}
-                        data={chatStore.chatData}
-                        renderItem={({ item }) => this.setUi(item)}
-                        keyExtractor={item => item.time}
-                    />
-                </View>
-                <View style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: 'white',
-                    position: 'absolute',
-                    width: '100%',
-                    elevation: 5,
-                    flex: 1,
-                    flexDirection: 'row',
-                    bottom: this.state.keyboardOffset, elevation: 5
-                }}>
+            <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#fff' }}>
+                <FlatList
+                    data={HomeStore.chatBot}
+                    renderItem={({ item }) => <this.isSent item={item} />}
+                    keyExtractor={item => item.id} />
+                <View style={{ flexDirection: 'row', position: 'absolute', bottom: 0, marginBottom: 10, marginLeft: 10 }}>
                     <TextInput
-                        ref={input => { this.textInput = input }}
-                        multiline={true}
-                        placeholder="Text"
-                        onChangeText={(te) => {
+                        onChangeText={(res) => {
                             this.setState({
-                                text: te
+                                text: res
                             })
                         }}
+                        value={this.state.text}
                         style={{
-                            marginTop: 10,
-                            flex: 10,
-                            marginLeft: 10,
-                            marginRight: 10,
-                            fontSize: 20,
-                            marginBottom: 10,
-                            borderBottomColor: "#454545", borderBottomWidth: 1
+                            flex: 8, padding: 10,
+                            borderWidth: 1, borderRadius: 20, borderColor: '#1f1f1'
                         }} />
-
-                    <Ionicons
+                    <Icon
+                        style={{ flex: 1, paddingLeft: 10, top: 10 }}
                         onPress={() => {
-                            firebase.database().ref("Chats/" + this.props.navigation.state.params.id + "/Conv/")
-                                .push({
-                                    from: this.state.id,
-                                    text: this.state.text,
-                                    time: Math.floor(Date.now())
-                                }, (() => {
-                                    this.textInput.clear()
-                                    for (var i = 0; i < chatStore.OrgsList.length; i++) {
-                                        if (chatStore.OrgsList[i]["id"] == this.props.navigation.state.params.id) {
-                                            break;
-                                        }
-                                    }
+                            this.setState({
+                                text: ""
+                            })
+                            HomeStore.chatBot = [
+                                ...HomeStore.chatBot,
+                                {
+                                    id: HomeStore.chatBot.length,
+                                    Text: this.state.text,
+                                    sent: true
+                                }
+                            ]
+                            this.request();
+                        }} name="send" size={30} color="#1e5aff" />
 
-                                    this.checkNoti(i, 0)
-
-
-                                }))
-
-                        }}
-                        style={{ flex: 1, marginLeft: 10 }}
-                        type="ionicon"
-                        color={'#2089dc'}
-                        size={28}
-                        name={Platform.OS === "ios" ? "ios-send" : "ios-send"}
-                    />
                 </View>
-            </KeyboardAvoidingView>
+            </View>
+
         );
     }
 }

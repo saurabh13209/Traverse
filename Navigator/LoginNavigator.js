@@ -19,6 +19,7 @@ import NewInfoScreen from '../src/Places/Contribute/NewInfoScreen';
 import ReviewScreen from '../src/Places/ReviewScreen';
 import ItineraryIndex from '../src/Home/Itinerary/Index';
 import LocalTongue from '../src/Home/NeedsScreen/LocalTongue';
+import ChatBot from '../src/Home/NeedsScreen/ChatBot';
 
 const PlaceNavigator = createStackNavigator({
   HomeInner: {
@@ -109,6 +110,9 @@ const NeedNavigator = createStackNavigator({
   },
   Local: {
     screen: LocalTongue
+  },
+  Chat: {
+    screen: ChatBot
   }
 }, {
   initialRouteName: "index"

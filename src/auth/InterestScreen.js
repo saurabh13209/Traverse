@@ -25,52 +25,21 @@ export default class InterestScreen extends React.Component {
                             style={{ flex: 1, padding: 10, }}
                         >
                             <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex: 1, padding: 10, }}
                         >
                             <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex: 1, padding: 10, }}
                         >
                             <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
-                        </TouchableOpacity>
-
-
-
-
-                    </View>
-
-
-                    <View style={{
-                        flexDirection: 'row', marginBottom: 5,
-                        justifyContent: 'space-around'
-                    }}>
-                        <TouchableOpacity
-                            style={{ flex: 1, padding: 10, }}
-                        >
-                            <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ flex: 1, padding: 10, }}
-                        >
-                            <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ flex: 1, padding: 10, }}
-                        >
-                            <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
                         </TouchableOpacity>
 
 
@@ -87,21 +56,52 @@ export default class InterestScreen extends React.Component {
                             style={{ flex: 1, padding: 10, }}
                         >
                             <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex: 1, padding: 10, }}
                         >
                             <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ flex: 1, padding: 10, }}
                         >
                             <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
-                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Kickme</Text>
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
+                        </TouchableOpacity>
+
+
+
+
+                    </View>
+
+
+                    <View style={{
+                        flexDirection: 'row', marginBottom: 5,
+                        justifyContent: 'space-around'
+                    }}>
+                        <TouchableOpacity
+                            style={{ flex: 1, padding: 10, }}
+                        >
+                            <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{ flex: 1, padding: 10, }}
+                        >
+                            <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{ flex: 1, padding: 10, }}
+                        >
+                            <Image style={{ borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 20, height: 100, width: '105%', resizeMode: "stretch" }} source={require('../../images/beach.jpeg')} />
+                            <Text style={{ textAlign: 'center', marginTop: 10 }}>Place </Text>
                         </TouchableOpacity>
 
 

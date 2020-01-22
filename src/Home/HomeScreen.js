@@ -6,7 +6,9 @@ import {
 import Geolocation from 'react-native-geolocation-service';
 import BackgroundTimer from 'react-native-background-timer';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import HomeStore from '../../stores/HomeStore';
+import { observer } from 'mobx-react';
+@observer
 export default class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -192,39 +194,39 @@ export default class HomeScreen extends React.Component {
         console.disableYellowBox = true;
         return (
             <View style={{ flex: 1, backgroundColor: '#fff' }}>
-
-
-
                 <View
                     style={{
                         flex: 1, width: Dimensions.get('window').width, height: 60,
                         backgroundColor: '#fff', flexDirection: 'column', justifyContent: 'center',
-                        position: 'absolute', top: 0, left: 0
+                        position: 'absolute', top: 0, left: 0, alignItems: 'center'
                     }}>
                     <View style={{
+                        flex: 1,
                         borderColor: '#ccc', marginTop: 10, marginLeft: 20, marginRight: 20,
                         borderRadius: 5, borderWidth: 1, flexDirection: 'row'
                     }}>
                         <Icon name="flag"
                             size={20} color="#1E5AFF"
-                            style={{ marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10 }} />
+                            style={{ flex: 1, marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10 }} />
                         <TextInput
                             placeholder="Search for places & activites"
                             style={{
+                                flex: 8,
                                 marginRight: 20, fontSize: 18, flexDirection: 'row', fontFamily: 'CeraPro-Medium'
                             }}>
                         </TextInput>
 
                         <Icon name="microphone"
                             size={20} color="#1E5AFF"
-                            style={{ marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10 }} />
+                            style={{ flex: 1, top: 15 }} />
                         <Icon name="file-sound-o"
                             size={20} color="#1E5AFF"
-                            style={{ marginRight: 10, marginLeft: 10, marginTop: 10, marginBottom: 10 }} />
+                            style={{ flex: 1, position: 'relative', top: 15, left: 0 }} />
                     </View>
                 </View>
                 <ScrollView style={{ top: 70 }}>
-                    <Text style={{ fontFamily: 'CeraPro-Bold', fontSize: 22, marginTop: 10, marginLeft: 20, marginRight: 20 }}>Hi Shwet,</Text>
+                    <Text style={{ fontFamily: 'CeraPro-Bold', fontSize: 22, 
+                    marginTop: 10, marginLeft: 20, marginRight: 20 }}>Hi {HomeStore.Name},</Text>
                     <Text style={{ fontFamily: 'CeraPro-Medium', fontSize: 18, marginLeft: 20, marginRight: 20 }}>Enjoy exploring Goa!</Text>
                     <Image source={require("../../images/beach.jpeg")} style={{ height: 200, marginTop: 20 }} />
 
@@ -237,8 +239,10 @@ export default class HomeScreen extends React.Component {
 
                             }}
                             style={{
+                                flex: 1, color: '#f5f5f5',
                                 height: 50, width: 200, marginLeft: 20, justifyContent: 'center',
-                                borderColor: '#ccc', borderWidth: 1, borderTopRightRadius: 20, borderTopLeftRadius: 20
+                                borderColor: '#ccc', borderWidth: 1, borderTopRightRadius: 20,
+                                borderTopLeftRadius: 20
                             }}>
 
                             <Text style={{ alignSelf: 'center', color: '#514d4d', fontFamily: 'CeraPro-Medium' }}>
@@ -251,17 +255,25 @@ export default class HomeScreen extends React.Component {
                             placeholderTextColor="#1f1f1f"
                             keyboardType="number-pad"
                             placeholder="Budget"
-                            style={{ textAlign: 'center', width: 150, marginLeft: 20, borderColor: '#ccc', borderWidth: 1, borderRadius: 20 }} />
+                            style={{
+                                textAlign: 'center', marginRight: 20, width: 200,
+                                height: '80%', marginLeft: 20, borderColor: '#ccc',
+                                borderWidth: 1, borderRadius: 20
+                            }} />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
+                        <TouchableOpacity
+                            onPress={() => {
 
-                        <TouchableOpacity style={{
-                            height: 50, width: 200, marginLeft: 20, justifyContent: 'center',
-                            borderColor: '#ccc', borderWidth: 1, borderTopWidth: 0, borderBottomRightRadius: 20, borderBottomLeftRadius: 20
-                        }}>
-                            <Text
-                                style={{ alignSelf: 'center', color: '#514d4d', fontFamily: 'CeraPro-Medium' }}>
-                                21/01/2020
+                            }}
+                            style={{
+                                flex: 1, color: '#f5f5f5',
+                                height: 50, width: 200, marginLeft: 20, justifyContent: 'center',
+                                borderColor: '#ccc', borderWidth: 1, borderBottomRightRadius: 20, borderBottomLeftRadius: 20
+                            }}>
+
+                            <Text style={{ alignSelf: 'center', color: '#514d4d', fontFamily: 'CeraPro-Medium' }}>
+                                20/01/2020
                             </Text>
 
                         </TouchableOpacity>
@@ -272,13 +284,12 @@ export default class HomeScreen extends React.Component {
                                 this.props.navigation.navigate("Itinerary");
                             }}
                             style={{
-                                width: 150,
-                                marginTop: 5,
-                                marginLeft: 20,
-                                padding: 10,
+                                textAlign: 'center', padding: 10,
                                 paddingLeft: 20, paddingRight: 20,
-                                backgroundColor: '#ff8c20',
-                                borderRadius: 20
+                                marginTop:5,elevation:4,
+                                 marginRight: 20, width: 200, 
+                                height: '80%', marginLeft: 20 , backgroundColor:'#ff8c20',
+                                 borderRadius: 20
                             }}
                         >
                             <View>
@@ -292,8 +303,8 @@ export default class HomeScreen extends React.Component {
                                 </Text>
                             </View>
                         </TouchableOpacity>
-                    </View>
 
+                    </View>
 
                     <View style={{ margin: 16, marginTop: 25, justifyContent: 'space-between', flex: 1, flexDirection: 'row' }}>
                         <Text style={{ fontFamily: 'CeraPro-Bold' }}>Things to do</Text>

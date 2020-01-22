@@ -26,6 +26,16 @@ export default class NeedSceeen extends React.Component {
                         Help Bot
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        this.props.navigation.navigate("Chat");
+                    }}
+                >
+                    <Text style={{fontSize:30 , marginTop:20 , fontFamily:'CeraPro-Bold' , }}>
+                        Chat Bot
+                    </Text>
+                </TouchableOpacity>
+                
             </View>
         );
     }
