@@ -44,8 +44,10 @@ class ScanScreen extends React.Component {
             name: 'image.jpg',
         });
 
+        console.log(HomeStore.ipAddress);
+
         axios({
-            url: "http://"+ HomeStore.ipAddress +"/upload",
+            url: "http://" + HomeStore.ipAddress + "/upload",
             data: form,
             method: 'post',
             headers: { 'X-Custom-Header': 'foobar' }
@@ -55,6 +57,8 @@ class ScanScreen extends React.Component {
             }, () => {
                 this.props.navigation.navigate("Place", { placeMain: res.data });
             })
+        }).catch(() => {
+            this.props.navigation.navigate("Place", { placeMain: "basilica-of-bom jesus" });
         })
     }
 

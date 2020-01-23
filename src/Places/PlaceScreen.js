@@ -16,7 +16,7 @@ export default class PlaceScreen extends React.Component {
             viewRef: null,
             mapMain: [["aguada-fort", "Place15"], ["anjuna-beach", "Place2"], ["baga-beach", "Place5"], ["basilica-of-bom jesus", "Place7"], ["bogmalo-beach", "Place33"], ["cabo-de-gama-fort", "Place27"], ["chapora-fort", "Place35"], ["colva-beach", "Place31"], ["corjuem-fort", "Place28"], ["mangueshi-temple", "Place8"], ["our-lady- of-rosary-church", "Place18"], ["'our-lady-of-the-immaculate- conception-church", "Place17"], ["reis-magos-fort", "Place13"], ["se-cathedral", "Place16"], ["shantadurga-temple", "Place10"], ["sinquerim-beach", "Place30"], ["st-augustine-church", "Place20"], ["st-francis-of-assisi-church", "Place6"], ["vagator-beach", "Place32"]],
 
-            PlaceId: "",
+            PlaceId: "Place7",
             Image: [],
             Name: "",
             SrtDesc: "",
@@ -33,18 +33,13 @@ export default class PlaceScreen extends React.Component {
         this.setState({ viewRef: findNodeHandle(this.backgroundImage) });
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.setState({
             placeName: this.props.navigation.getParam("placeMain"),
-        })
-
-        for (var i = 0; i < this.state.mapMain.length; i++) {
-            if (this.state.mapMain[i][0] === this.props.navigation.getParam("placeMain")) {
-                this.setState({
-                    PlaceId: this.state.mapMain[i][0]
-                })
+        }, () => {
+            if (this.state.placeName == undefined) {
                 firebase.database()
-                    .ref("Places/" + this.state.mapMain[i][1])
+                    .ref("Places/Place7")
                     .once('value', (snap) => {
                         this.setState({
                             Name: snap.val()["Name"],
@@ -59,8 +54,34 @@ export default class PlaceScreen extends React.Component {
                             console.log(this.state.Hotels);
                         })
                     });
+            } else {
+                for (var i = 0; i < this.state.mapMain.length; i++) {
+                    if (this.state.mapMain[i][0] === this.props.navigation.getParam("placeMain")) {
+                        this.setState({
+                            PlaceId: this.state.mapMain[i][0]
+                        })
+                        firebase.database()
+                            .ref("Places/" + this.state.mapMain[i][1])
+                            .once('value', (snap) => {
+                                this.setState({
+                                    Name: snap.val()["Name"],
+                                    SrtDesc: snap.val()["SrtDesc"],
+                                    Months: snap.val()["Months"],
+                                    Price: snap.val()["BestPrice"],
+                                    ThingsToDo: snap.val()["ThingsToDo"],
+                                    Image: snap.val()["Image"],
+                                    Hotels: snap.val()["Hotels"],
+                                    Reviews: snap.val()["Reviews"]
+                                }, () => {
+                                    console.log(this.state.Hotels);
+                                })
+                            });
+                    }
+                }
+
             }
-        }
+        })
+
 
 
         //TODO: ON
