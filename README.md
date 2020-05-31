@@ -8,7 +8,7 @@ It is created with an intuitive, clean and minimal user interface so that the us
 
 <li><b>Home Page: </b> This is dashboard of the user, here user could find the places to visit, things to explore and an option to generate an itinery for the day or for whole trip</li>
 <br/>
-<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/home.jpg" width="250" height="500" />
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/home.jpg" width="300" height="700" />
 </br>
 
 <li><b>Scan Monument: </b> This feature which detects landmark or monument and find the relevant information about the monument using Machine learning and show the information to the user</li>
@@ -19,7 +19,7 @@ It is created with an intuitive, clean and minimal user interface so that the us
 
 <li><b>Monument Info: </b> This will give user detailed information about the place with reviews, cost to visit, best time to visit and FAQs related to place. User can also get the direction to the place using this application</li>
 <br/>
-<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/PlaceInfo.jpg" width="250" height="500" />
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/PlaceInfo.jpg" width="300" height="700" />
 </br>
 
 <li><b>Itinery Generator: </b> Automatically builds up a modifiable trip which takes start, end date & budget as input. Just need to add from date, to date and money u wanna spend</li>
