@@ -5,46 +5,40 @@ It is created with an intuitive, clean and minimal user interface so that the us
 
 <h3>Features of this application</h3>
 <ul>
+
+<li><b>Home Page: </b> This is dashboard of the user, here user could find the places to visit, things to explore and an option to generate an itinery for the day or for whole trip</li>
+<br/>
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/home.jpg" width="250" height="500" />
+</br>
+
 <li><b>Scan Monument: </b> This feature which detects landmark or monument and find the relevant information about the monument using Machine learning and show the information to the user</li>
 <br/>
 <img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/wonder.gif" width="250" height="500" />
 </br>
 
-<li><b>Academic Report: </b> This feature helps student to know their marks uploaded by the faculty. The application will dynamically add
-new examination results with proper UI adjustment as and when the teacher adds them in the school database.</li>
+
+<li><b>Monument Info: </b> This will give user detailed information about the place with reviews, cost to visit, best time to visit and FAQs related to place. User can also get the direction to the place using this application</li>
 <br/>
-<img src="https://github.com/saurabh13209/School-Management-System/blob/master/screen/result.png" width="250" height="500" />
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/PlaceInfo.jpg" width="250" height="500" />
 </br>
-<p><B>Generate PDF </B>The student will be able to access a summary of their examination results in an automatically generated PDF.</p>
+
+<li><b>Itinery Generator: </b> Automatically builds up a modifiable trip which takes start, end date & budget as input. Just need to add from date, to date and money u wanna spend</li>
 <br/>
-<img src="https://github.com/saurabh13209/School-Management-System/blob/master/screen/PDF.png" width="250" height="500" />
-</br></br>
-
-
-
-<li><b>Profile: </b> This will show user their profile information like contact number, email address etc</li>
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/Itinery.jpg" width="250" height="500" />
 </br>
-<img src="https://github.com/saurabh13209/School-Management-System/blob/master/screen/home.png" width="250" height="500" />
+<p><B>Contribute </B>This feature which allows users to Update current info request, New info section, Report an issue & Write a review</p>
+<br/>
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/Contribute.jpg" width="250" height="500" />
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/Review.jpg" width="250" height="500" />
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/Report.jpg" width="250" height="500" />
 </br></br>
+</ul>
 
-
-<li><b>Events Calendar: </b> This feature will help student to keep a track of school events with their respective dates. </li>
-</br>
-<img src="https://github.com/saurabh13209/School-Management-System/blob/master/screen/calMain.png" width="700" height="500" />
-</br></br>
-
-
-<li><b>Setting: </b> This will provide user with a feature to change their profile image. Send message to the school and logout from the system</li>
-</br>
-<img src="https://github.com/saurabh13209/School-Management-System/blob/master/screen/setting.png" width="250" height="500" />
-</br></br>
-
-
-<li><b>Login Page: </b> student can login in this application using a unique login and password provided by the school.</li>
-</br>
-<img src="https://github.com/saurabh13209/School-Management-System/blob/master/screen/login.png" width="250" height="500" />
-</br></br>
-
-
+<h3>Few other features are</h3>
+<ul>
+  <li>Chat Bot to help user ask and plan trip in more effective and easy way.</li>
+  <li>Use of “Push notifications” & “Places near you” section in the app to display nearby landmarks in realtime.</li>
+  <li>Local Tongue Common sentences in “Konkani” in audio format.</li>
+  <li>While travelling user will be getting nearby places notifications in realtime.</li>
 </ul>
 
