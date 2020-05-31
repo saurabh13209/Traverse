@@ -7,7 +7,8 @@ It is created with an intuitive, clean and minimal user interface so that the us
 <ul>
 <li><b>Scan Monument: </b> This feature which detects landmark or monument and find the relevant information about the monument using Machine learning and show the information to the user</li>
 <br/>
-![](https://github.com/saurabh13209/Traverse/blob/master/screenshot/wonder.gif)
+<img src="https://github.com/saurabh13209/Traverse/blob/master/screenshot/wonder.gif" width="250" height="500" />
+</br>
 
 <li><b>Academic Report: </b> This feature helps student to know their marks uploaded by the faculty. The application will dynamically add
 new examination results with proper UI adjustment as and when the teacher adds them in the school database.</li>
