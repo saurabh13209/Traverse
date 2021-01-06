@@ -33,7 +33,7 @@
     "@react-native-community/google-signin": "^3.0.4",
     "@react-native-community/masked-view": "^0.1.5",
     "@react-native-community/viewpager": "^3.3.0",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "customize-cra": "^0.9.1",
     "mobx": "4",
     "mobx-react": "^6.1.3",
